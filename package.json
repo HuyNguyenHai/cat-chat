@@ -1,0 +1,27 @@
+{
+  "name": "moewed-group",
+  "version": "1.0.0",
+  "description": "A chat group",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuyNguyenHai/moewed-group.git"
+  },
+  "author": "Hai Huy Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HuyNguyenHai/moewed-group/issues"
+  },
+  "homepage": "https://github.com/HuyNguyenHai/moewed-group#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
