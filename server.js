@@ -1,14 +1,14 @@
-var express = require('express');
-var app = express();
+import express from "express";
+let app = express();
 
-var hostname = "localhost";
-var port = 8000;
+let hostname = "localhost";
+let port = 8000;
 
 app.get("/helloworld", (req, res) => {
-    res.send("Hello world!!!!!");
+  res.send("Hello world!!!!!");
 });
 
 app.listen(port, hostname, () => {
-    console.log(`Server is started at ${hostname}:${port}/`);
+  console.log(`Server is started at ${hostname}:${port}/`);
 });
 
