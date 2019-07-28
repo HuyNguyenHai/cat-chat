@@ -1,0 +1,21 @@
+{
+  "name": "moewed-group",
+  "description": "A chat group",
+  "main": "src/server.js",
+  "authors": [
+    "Hai Huy Nguyen"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/HuyNguyenHai/moewed-group",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower_components": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git"
+  }
+}
