@@ -1,5 +1,6 @@
 import express from "express";
 import {home, auth} from "../controllers";
+import {authValid} from "../validation";
 
 let router = express.Router();
 
@@ -10,7 +11,9 @@ let router = express.Router();
  let initRoutes = (app) => {
   router.get('/', home);
   
-  router.get('/login', auth.getLoginRegister);
+  router.get('/login-register', auth.getLoginRegister);
+
+  router.post('/register',authValid.register, auth.postRegister);
 
   return app.use("/", router);
  }
