@@ -2,6 +2,11 @@ require('dotenv').config()
 import express from "express";
 import ConnectDB from "./config/connectDB";
 import configViewEngine from "./config/viewEngine";
+import initRoutes from "./routes/api";
+
+/**
+ * @param app is exactly express module
+ */
 
 let app = express();
 
@@ -10,15 +15,9 @@ let port = process.env.APP_PORT;
 
 ConnectDB();
 
+initRoutes(app);
+
 configViewEngine(app);
-
-app.get('/', (req, res) => {
-  res.render("main/master");
-});
-
-app.get('/login', (req, res) => {
-  res.render("auth/loginRegister");
-});
 
 app.listen(port, hostname, () => {
   console.log(`Server is started at ${hostname}:${port}/`);
