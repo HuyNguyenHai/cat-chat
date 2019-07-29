@@ -22,14 +22,14 @@ let register = (email, gender, password, protocol, host) => {
     let salt = bcrypt.genSaltSync(saltRounds);
 
     let userItem = {
-      username: email.split("@")[0],
+      user: email.split("@")[0],
       gender: gender,
       local: {
         email: email,
         password: bcrypt.hashSync(password, salt),
         verify: uuidv4()
       }
-    }
+    };
 
     let user = await UserModel.createNew(userItem);
     let linkVerify = `${protocol}://${host}/verify/${user.local.verify}`;
@@ -53,7 +53,7 @@ let verifyAccount = (token) => {
   return new Promise(async (resolve, reject) => {
     let userByToken = await UserModel.findByToken(token);
     if(!userByToken){
-      reject(transSuccess.token_undefined);
+      reject(transErrors.token_undefined);
     }
     await UserModel.verify(token);
     resolve(transSuccess.account_active);

@@ -6,6 +6,7 @@ import initRoutes from "./routes/api";
 import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
 import configSession from "./config/session";
+import passport from "passport";
 
 /**
  * @param app is exactly express module
@@ -26,8 +27,14 @@ configSession(app);
 //Enable to use flash function for flash message
 app.use(connectFlash());
 
+//config view engine
 configViewEngine(app);
 
+//config passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//init routes
 initRoutes(app);
 
 app.listen(port, hostname, () => {
