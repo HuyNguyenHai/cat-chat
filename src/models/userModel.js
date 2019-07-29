@@ -37,6 +37,23 @@ UserSchema.statics = {
 
   findByEmail(email){
     return this.findOne({"local.email": email}).exec();
+  },
+
+  removeById(id){
+    return this.findByIdAndRemove(id).exec();
+  },
+
+  findByToken(token){
+    return this.findOne({"local.verify": token}).exec();
+  },
+
+  verify(token){
+    return this.findOneAndUpdate({
+        "local.verify": token
+    }, {
+        "local.verify": null,
+        "local.isActive": true
+    }).exec();
   }
 }
 
