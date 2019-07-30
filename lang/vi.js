@@ -22,7 +22,8 @@ export const transSuccess = {
   account_active: "Kich hoat tai khoan thanh cong ban cos the dang nhap vao ung dung.",
   loginSuccess: (username) => {
     return `Xin chào ${username}. Ngày mới tốt lành.`;
-  }
+  },
+  logout_success: "Đăng xuất thành công."
 }
 
 export const transMail = {
