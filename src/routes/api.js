@@ -1,6 +1,6 @@
 import express from "express";
-import {home, auth} from "../controllers";
-import {authValid} from "../validation";
+import { home, auth, user } from "../controllers";
+import { authValid } from "../validation";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -14,34 +14,51 @@ initPassportFacebook();
  * @param app from exactly express module
  */
 
- let initRoutes = (app) => {
-  router.get('/',auth.checkLoggedIn, home);
-  
-  router.get('/login-register', auth.checkLoggedOut, auth.getLoginRegister);
+let initRoutes = app => {
+  router.get("/", auth.checkLoggedIn, home);
 
-  router.post('/register', auth.checkLoggedOut, authValid.register, auth.postRegister);
+  router.get("/login-register", auth.checkLoggedOut, auth.getLoginRegister);
 
-  router.get('/verify/:token', auth.checkLoggedOut, auth.verifyAccount);
+  router.post(
+    "/register",
+    auth.checkLoggedOut,
+    authValid.register,
+    auth.postRegister
+  );
 
-  router.post('/login', auth.checkLoggedOut, passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login-register",
-    successFlash: true,
-    failureFlash: true
-  }));
+  router.get("/verify/:token", auth.checkLoggedOut, auth.verifyAccount);
 
-  router.get('/auth/facebook', passport.authenticate('facebook', {
+  router.post(
+    "/login",
+    auth.checkLoggedOut,
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login-register",
+      successFlash: true,
+      failureFlash: true
+    })
+  );
+
+  router.get(
+    "/auth/facebook",
+    passport.authenticate("facebook", {
       scope: ["email"]
-  }));
+    })
+  );
 
-  router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: "/",
-    failureRedirect: "/login-register"
-  }));
+  router.get(
+    "/auth/facebook/callback",
+    passport.authenticate("facebook", {
+      successRedirect: "/",
+      failureRedirect: "/login-register"
+    })
+  );
 
-  router.get('/logout', auth.checkLoggedIn, auth.getLogout);
+  router.get("/logout", auth.checkLoggedIn, auth.getLogout);
+
+  router.put("/user/update-avatar", auth.checkLoggedIn, user.updateAvatar);
 
   return app.use("/", router);
- }
+};
 
- module.exports = initRoutes;
+module.exports = initRoutes;

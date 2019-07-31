@@ -11,7 +11,9 @@ export const transErrors = {
   account_not_active: "Tai khoan chua active vui long kiem tra email cua ban",
   token_undefined: "Token khong ton tai. Co the ban da active tai khoan roi.",
   login_fail: "Tên đăng nhập hoặc mật khẩu không đúng.",
-  server_error: "Server có lỗi. Vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để được hỗ trợ."
+  server_error: "Server có lỗi. Vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để được hỗ trợ.",
+  invalid_file: "File khong hop le",
+  avatar_size: "File avatar khong duoc vuot qua 1Mb. Hay chon anh khac."
 }
 
 export const transSuccess = {
@@ -23,7 +25,8 @@ export const transSuccess = {
   loginSuccess: (username) => {
     return `Xin chào ${username}. Ngày mới tốt lành.`;
   },
-  logout_success: "Đăng xuất thành công."
+  logout_success: "Đăng xuất thành công.",
+  avatar_updated: "Cap nhat anh dai dien thanh cong."
 }
 
 export const transMail = {

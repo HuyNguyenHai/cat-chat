@@ -7,17 +7,17 @@ function UpdateUserInfo() {
     let math = ["image/png", "image/jpg", "image/jpeg"];
     let limitData = 1048576;//1Mb
 
-    if ($.inArray(fileData.type, math) === -1) {
-      alertify.notify("File is not valid!!!", "error", 5);
-      $(this).val(null);
-      return false;
-    }
+    // if ($.inArray(fileData.type, math) === -1) {
+    //   alertify.notify("File is not valid!!!", "error", 5);
+    //   $(this).val(null);
+    //   return false;
+    // }
 
-    if (fileData.size > limitData) {
-      alertify.notify("Anh gi nang the, chon lai ngay!!!", "error", 5);
-      $(this).val(null);
-      return false;
-    }
+    // if (fileData.size > limitData) {
+    //   alertify.notify("Anh gi nang the, chon lai ngay!!!", "error", 5);
+    //   $(this).val(null);
+    //   return false;
+    // }
 
     if(typeof(FileReader) != "undefined"){
       let ReviewAvatar = $("#image-edit-profile");
@@ -70,7 +70,7 @@ $(document).ready(function () {
   UpdateUserInfo();
   $("#input-btn-update-user").bind("click", function(){
     if ($.isEmptyObject(userInfo) && !userAvatar){
-      alertify.notify("Ban can thay doi avatar hoac thong tin truoc khi luu.", "error", 7);
+      return alertify.notify("Ban can thay doi avatar hoac thong tin truoc khi luu.", "error", 7);
     }
 
     $.ajax({
@@ -78,21 +78,31 @@ $(document).ready(function () {
       url: "/user/update-avatar",
       cache: false,
       contentType: false,
-      processType: false,
+      processData: false,
       data: userAvatar,
-      success: function() {
+      success: function(result) {
+        $("#user-alert-success").find("span").text(result.message);
+        $("#user-alert-success").css("display", "block");
+        $("#user-alert-error").css("display", "none");
 
+        $("#navbar-avatar").attr("src", result.imgSrc);
+        currentAvatar = result.imgSrc;
+
+        $("#input-btn-cancel-update-user").click();
       },
-      error: fuunction() {
+      error: function(error) {
+        $("#user-alert-error").find("span").text(error.responseText);
+        $("#user-alert-error").css("display", "block");
+        $("#user-alert-success").css("display", "none");
+
+        $("#input-btn-cancel-update-user").click();
       }
     });
-
-    console.log(userAvatar);
-    console.log(userInfo);
   });
   $("#input-btn-cancel-update-user").bind("click", function(){
     userAvatar = null;
     userInfo = {};
+    $("#input-change-avatar").val(null);
     $("#user-modal-avatar").attr("src", currentAvatar);
   })
 });
