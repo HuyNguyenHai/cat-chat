@@ -2,7 +2,12 @@ export const transValidation = {
   email_incorrect: "Hãy nhập lại một Emeow hợp lệ nhé! Meowww!",
   gender_incorrect: "Bạn không nằm trong 2 loại giới tính  này ư?",
   password_incorrect: "Hãy nhập mật khẩu với ít nhất 8 ký tự.",
-  password_confirmation_incorrect: "Mật khẩu không khớp."
+  password_confirmation_incorrect: "Mật khẩu không khớp.",
+  
+  update_username: "Khong qua 17 ki tu va khong dung ky tu dac biet.",
+  update_gender: "Gioi tinh sai, dung nghich inspect nua.",
+  update_address: "Dia chi nha gioi han 30 kis tu.",
+  update_phone: "So dien thoai phai bao gom cac chu so."
 }
 
 export const transErrors = {
@@ -26,7 +31,8 @@ export const transSuccess = {
     return `Xin chào ${username}. Ngày mới tốt lành.`;
   },
   logout_success: "Đăng xuất thành công.",
-  avatar_updated: "Cap nhat anh dai dien thanh cong."
+  avatar_updated: "Cap nhat anh dai dien thanh cong.",
+  userInfo_updated: "Cap nhat thong tin nguoi dung thanh cong."
 }
 
 export const transMail = {
