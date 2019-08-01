@@ -4,6 +4,7 @@ import {transErrors, transSuccess} from "./../../lang/vi";
 import uidv4 from "uuid/v4";
 import {user} from "./../services"
 import fs from "fs-extra";
+import {validationResult} from "express-validator/check";
 
 let storageAvatar = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -60,6 +61,35 @@ let updateAvatar = (req, res) => {
   });
 }
 
+let updateUserInfo = async (req, res) => {
+  let errorArray = [];
+
+  let validationErrors = validationResult(req);
+
+  if(!validationErrors.isEmpty()){
+    let errors = Object.values(validationErrors.mapped());
+    errors.forEach(element => {
+      errorArray.push(element.msg);
+    });
+    return res.status(500).send(errorArray);
+  }
+
+  try {
+    let updateUserItem = req.body;
+    console.log(updateUserItem);
+    await user.updateUser(req.user._id, updateUserItem); 
+
+    let result = {
+      message: transSuccess.userInfo_updated
+    }
+    return res.status(200).send(result);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(transErrors.server_error);
+  }
+}
+
 module.exports = {
-  updateAvatar: updateAvatar
+  updateAvatar: updateAvatar,
+  updateUserInfo: updateUserInfo
 }

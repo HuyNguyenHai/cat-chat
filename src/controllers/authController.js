@@ -1,7 +1,6 @@
 import {validationResult} from "express-validator/check";
 import {auth} from "./../services";
 import {transSuccess} from "./../../lang/vi";
-import { runInNewContext } from "vm";
 
 let getLoginRegister = (req, res) => {
   res.render("auth/master", {
