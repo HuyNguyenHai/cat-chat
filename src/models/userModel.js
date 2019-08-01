@@ -60,6 +60,10 @@ UserSchema.statics = {
     return this.findByIdAndUpdate(id, item).exec();
   },
 
+  updatePassword(id, password){
+    return this.findByIdAndUpdate(id, {"local.password": password}).exec();
+  },
+
   verify(token){
     return this.findOneAndUpdate({
         "local.verify": token
