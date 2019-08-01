@@ -2,6 +2,7 @@ let userAvatar = null;
 let userInfo = {};
 let currentAvatar;
 let currentUserInfo;
+let userUpdatePassword = {};
 
 function UpdateUserInfo() {
   $("#input-change-avatar").bind("change", function(){
@@ -108,6 +109,47 @@ function UpdateUserInfo() {
     }
     userInfo.phone = $(this).val();
   });
+
+  $("#input_change_current_password").bind("change", function() {
+    let currentPass = $(this).val();
+    let regexPass = new RegExp("^[a-zA-Z0-9]{8,}$");
+  
+    if(!regexPass.test(currentPass)){
+      alertify.notify("Hãy nhập mật khẩu với ít nhất 8 ký tự.", "error", 7);
+      $(this).val(null);
+      delete(userUpdatePassword.currentPassword);
+      return false;
+    }
+    userUpdatePassword.currentPassword = $(this).val();
+    console.log(userUpdatePassword.currentPassword, userUpdatePassword.newPass, userUpdatePassword.newPassConfirm);
+  });
+
+  $("#input_change_new_password").bind("change", function() {
+    let newPass = $(this).val();
+    let regexPass = new RegExp("^[a-zA-Z0-9]{8,}$");
+  
+    if(!regexPass.test(newPass)){
+      alertify.notify("Hãy nhập mật khẩu moi với ít nhất 8 ký tự.", "error", 7);
+      $(this).val(null);
+      delete(userUpdatePassword.newPass);
+      return false;
+    }
+    userUpdatePassword.newPass = $(this).val();
+    console.log(userUpdatePassword.currentPassword, userUpdatePassword.newPass, userUpdatePassword.newPassConfirm);
+    
+  });
+
+  $("#input_change_new_password_confirm").bind("change", function() {
+    let newPassConfirm = $(this).val();
+    if(newPassConfirm != userUpdatePassword.newPass){
+      alertify.notify("Nhap lai mat khau khong khop", "error", 7);
+      $(this).val(null);
+      delete(userUpdatePassword.newPassConfirm);
+      return false;
+    }
+    userUpdatePassword.newPassConfirm = $(this).val();
+    console.log(userUpdatePassword.currentPassword, userUpdatePassword.newPass, userUpdatePassword.newPassConfirm);
+  });
 }
 
 function callUpdateUserAvatar(){
@@ -166,6 +208,27 @@ function callUpdateUserInfo(){
   });
 }
 
+function callUpdateUserPassword(){
+  $.ajax({
+    type: "put",
+    url: "/user/update-password",
+    data: userUpdatePassword,
+    success: function (result) {
+      $("#alert-user-password-success").find("span").text(result.message);
+      $("#alert-user-password-success").css("display", "block");
+      $("#alert-user-password-error").css("display", "none");
+
+      $("#input-btn-cancel-update-user-password").click();
+    },
+    error: function (error) {
+      $("#alert-user-password-error").find("span").text(error.responseText);
+      $("#alert-user-password-error").css("display", "block");
+      $("#alert-user-password-success").css("display", "none");
+      $("#input-btn-cancel-update-user-password").click();
+    }
+  });
+}
+
 $(document).ready(function () {
   currentAvatar = $("#user-modal-avatar").attr("src");
 
@@ -197,7 +260,6 @@ $(document).ready(function () {
   $("#input-btn-cancel-update-user").bind("click", function(){
     userAvatar = null;
     userInfo = {};
-    console.log(userInfo);
     $("#input-change-avatar").val(null);
     $("#user-modal-avatar").attr("src", currentAvatar);
 
@@ -206,5 +268,25 @@ $(document).ready(function () {
     (currentUserInfo.gender === "male")?$("#input-change-gender-male").click():$("#input-change-gender-female").click();
     $("#input-change-address").val(currentUserInfo.address);
     $("#input-change-phone").val(currentUserInfo.phone);
+  });
+
+  //Change User Password
+
+  $("#input-btn-update-user-password").bind("click", function(){
+    if(Object.values(userUpdatePassword).includes(undefined)){
+      alertify.notify("Can nhap du cac thong tin ben duoi truoc khi thay doi mat khau.");
+      return false;
+    }
+
+    callUpdateUserPassword();
+  });
+
+  $("#input-btn-cancel-update-user-password").bind("click", function(){
+    userUpdatePassword = {};
+    //Reset Current User Password
+    $("#input_change_current_password").val(null);
+    $("#input_change_new_password").val(null);
+    $("#input_change_new_password_confirm").val(null);
+    console.log(userUpdatePassword);
   });
 });

@@ -5,6 +5,7 @@ import uidv4 from "uuid/v4";
 import {user} from "./../services"
 import fs from "fs-extra";
 import {validationResult} from "express-validator/check";
+import UserModel from "./../models/userModel";
 
 let storageAvatar = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -89,7 +90,46 @@ let updateUserInfo = async (req, res) => {
   }
 }
 
+let updatePassword = async(req, res) => {
+  let errorArray = [];
+  
+  let validationErrors = validationResult(req);
+
+  if(!validationErrors.isEmpty()){
+    let errors = Object.values(validationErrors.mapped());
+    errors.forEach(element => {
+      errorArray.push(element.msg);
+    });
+    console.log(errorArray);
+    return res.status(500).send(errorArray);
+  }
+
+  let currentUser = await UserModel.createNew(req.user);
+
+  let passwordCorrect = await currentUser.comparePassword(req.body.currentPassword);
+
+  if(!passwordCorrect){
+    errorArray.push(transErrors.update_password_incorrect)
+    console.log(errorArray);
+    return res.status(500).send(errorArray);
+  }
+
+  try {
+    let newUserPassword = req.body.newPass;
+    await user.updatePassword(req.user._id, newUserPassword); 
+
+    let result = {
+      message: transSuccess.userPassword_changed
+    }
+    return res.status(200).send(result);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(transErrors.server_error);
+  }
+}
+
 module.exports = {
   updateAvatar: updateAvatar,
-  updateUserInfo: updateUserInfo
+  updateUserInfo: updateUserInfo,
+  updatePassword: updatePassword
 }

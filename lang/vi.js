@@ -18,7 +18,8 @@ export const transErrors = {
   login_fail: "Tên đăng nhập hoặc mật khẩu không đúng.",
   server_error: "Server có lỗi. Vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để được hỗ trợ.",
   invalid_file: "File khong hop le",
-  avatar_size: "File avatar khong duoc vuot qua 1Mb. Hay chon anh khac."
+  avatar_size: "File avatar khong duoc vuot qua 1Mb. Hay chon anh khac.",
+  update_password_incorrect: "Khong thay doi duoc mat khau do nhap mat khau khong dung."
 }
 
 export const transSuccess = {
@@ -32,7 +33,8 @@ export const transSuccess = {
   },
   logout_success: "Đăng xuất thành công.",
   avatar_updated: "Cap nhat anh dai dien thanh cong.",
-  userInfo_updated: "Cap nhat thong tin nguoi dung thanh cong."
+  userInfo_updated: "Cap nhat thong tin nguoi dung thanh cong.",
+  userPassword_changed: "Thay doi mat khau thanh cong."
 }
 
 export const transMail = {

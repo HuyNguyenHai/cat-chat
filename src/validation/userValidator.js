@@ -1,7 +1,7 @@
 import {check} from "express-validator/check";
-import {transValidation} from "./../../lang/vi";
+import {transValidation, transErrors} from "./../../lang/vi";
 
-let update = [
+let updateInfo = [
   check("user", transValidation.update_username)
     .optional()
     .isLength({min:3, max: 17})
@@ -17,6 +17,23 @@ let update = [
     .matches(/^[0-9]*$/)
 ];
 
+let updatePassword = [
+  check("currentPassword", transValidation.password_incorrect)
+    .optional()
+    .isLength({min:8})
+    .matches(/^[a-zA-Z0-9]{8,}$/),
+  check("newPass", transValidation.password_incorrect)
+    .optional()
+    .isLength({min:8})
+    .matches(/^[a-zA-Z0-9]{8,}$/),
+  check("newPassConfirm", transValidation.password_confirmation_incorrect)
+    .optional()
+    .custom((value, {req}) => {
+      return value === req.body.newPass;
+    })  
+];
+
 module.exports = {
-  update: update
+  updateInfo: updateInfo,
+  updatePassword: updatePassword
 };
