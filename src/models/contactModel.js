@@ -14,6 +14,10 @@ let ContactSchema = new Schema({
 ContactSchema.statics = {
   createNew(item){
     return this.create(item);
+  },
+
+  findUsersContact(id) {
+    return this.find({"userId": id}).exec();
   }
 };
 

@@ -215,7 +215,7 @@ function callUpdateUserPassword(){
     data: userUpdatePassword,
     success: function (result) {
       $("#alert-user-password-success").find("span").text(result.message);
-      $("#alert-user-password-success").css("display", "block");
+      $("#alert-user-password-success").css("display", "block");  
       $("#alert-user-password-error").css("display", "none");
 
       $("#input-btn-cancel-update-user-password").click();
@@ -250,7 +250,7 @@ $(document).ready(function () {
     }
 
     if(userAvatar){
-      callUpdateAvatar();
+      callUpdateUserAvatar();
     }
 
     if(!$.isEmptyObject(userInfo)){

@@ -30,7 +30,6 @@ let avatarUploadFile = multer({
 
 let updateAvatar = (req, res) => {
   avatarUploadFile(req, res, async(error) => {
-    console.log(req.file);
     if (error) {
       if (error.message) {
         return res.status(500).send(transErrors.avatar_size);
@@ -39,8 +38,6 @@ let updateAvatar = (req, res) => {
     }
     //
     try {
-      console.log("Trong vong try catch");
-      console.log(req.file);
       let updateUserItem = {
         avatar: req.file.filename
       };

@@ -71,8 +71,23 @@ UserSchema.statics = {
         "local.verify": null,
         "local.isActive": true
     }).exec();
+  },
+  
+  findAllForAddContact(id, keyword) {
+    return this.find({
+      $and: [
+          {"_id": {$nin: id}},
+          {"local.isActive": true},
+          {$or: [
+              {"username": {"$regex": new RegExp(keyword, "i")}},
+              {"local.email": {"$regex": keyword}},
+              {"facebook.email": {"$regex": keyword}},
+              {"google.email": {"$regex": keyword}}
+          ]}
+      ]
+    }, {_id: 1, user: 1, address: 1, avatar: 1}).exec();
   }
-}
+};
 
 UserSchema.methods = {
   comparePassword(password){
