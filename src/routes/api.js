@@ -1,5 +1,5 @@
 import express from "express";
-import { home, auth, user } from "../controllers";
+import { home, auth, user, contact } from "../controllers";
 import { authValid, userValid } from "../validation";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
@@ -38,6 +38,8 @@ let initRoutes = app => {
       failureFlash: true
     })
   );
+
+  router.get("/contact/find-users/:keyword", auth.checkLoggedIn, contact.findUsersContact);
 
   router.get(
     "/auth/facebook",
