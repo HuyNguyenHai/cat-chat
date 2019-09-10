@@ -1,6 +1,5 @@
 import {contact} from "./../services";
-import transErrors from "./../../lang/vi";
-import transSuccess from "./../../lang/vi";
+import {transErrors} from "./../../lang/vi";
 
 let findUsersContact = async(req, res, next) => {
     try {
@@ -14,6 +13,34 @@ let findUsersContact = async(req, res, next) => {
     }
 }
 
+let addNew = async(req, res, next) => {
+    try {
+        let currentUserId = req.user._id;
+        let contactId = req.body.uid;
+        let newContact = await contact.addNew(currentUserId, contactId);
+    
+        return res.status(200).send({valueSuccess: !!newContact});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(transErrors.server_error);
+    }
+}
+
+let removeRequestContact = async(req, res, next) => {
+    try {
+        let currentUserId = req.user._id;
+        let contactId = req.body.uid;
+        let removeContact = await contact.removeRequestContact(currentUserId, contactId);
+
+        return res.status(200).send({valueSuccess: !!removeContact});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(transErrors.server_error);
+    }
+}
+
 module.exports = {
-    findUsersContact: findUsersContact
+    findUsersContact: findUsersContact,
+    addNew: addNew,
+    removeRequestContact: removeRequestContact
 }
