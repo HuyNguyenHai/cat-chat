@@ -1,6 +1,7 @@
 import UserModel from "./../models/userModel";
 import ContactModel from "./../models/contactModel";
 import _ from "lodash";
+import { contact } from ".";
 
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise(async (resolve, reject) => {
@@ -18,6 +19,35 @@ let findUsersContact = (currentUserId, keyword) => {
   });
 }
 
+let addNew = (currentUserId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let contactExist = await ContactModel.checkExist(currentUserId, contactId);
+    if(contactExist) {
+      return reject(false);
+    }
+    
+    let newContactItem = {
+      userId: currentUserId,
+      contactId: contactId
+    };
+
+    let newContact = ContactModel.createNew(newContactItem);
+    resolve(newContact);
+  });
+}
+
+let removeRequestContact = (currentUserId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let removeRequest = await ContactModel.removeRequestContact(currentUserId, contactId);
+    if(removeRequest.result.n == 0){
+      return reject(false);
+    }
+    resolve(true);
+  });
+}
+
 module.exports = {
-  findUsersContact: findUsersContact
+  findUsersContact: findUsersContact,
+  addNew: addNew,
+  removeRequestContact: removeRequestContact
 }
