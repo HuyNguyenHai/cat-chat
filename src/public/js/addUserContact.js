@@ -7,6 +7,8 @@ function addUserContact() {
                 $('#find-user').find(`div.user-remove-request-contact[data-uid = ${targetId}]`).css("display", "inline-block");
                 increaseNumNotifContact('count-request-contact-sent');
                 //xu ly realtime tu day
+                console.log(targetId);
+                socket.emit("add-new-contact", {contactid: targetId});
             }
         });
     });
