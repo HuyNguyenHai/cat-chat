@@ -74,7 +74,7 @@ let updateUserInfo = async (req, res) => {
 
   try {
     let updateUserItem = req.body;
-    console.log(updateUserItem);
+    
     await user.updateUser(req.user._id, updateUserItem); 
 
     let result = {
