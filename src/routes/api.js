@@ -15,7 +15,7 @@ initPassportFacebook();
  */
 
 let initRoutes = app => {
-  router.get("/", auth.checkLoggedIn, home);
+  router.get("/", auth.checkLoggedIn, home.getHome);
 
   router.get("/login-register", auth.checkLoggedOut, auth.getLoginRegister);
 
