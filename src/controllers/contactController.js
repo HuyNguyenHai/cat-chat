@@ -39,8 +39,22 @@ let removeRequestContact = async(req, res, next) => {
     }
 }
 
+let acceptRequestContact = async (req, res, next) => {
+    try {
+        let currentUserId = req.user._id;
+        let contactId = req.body.uid;
+        let acceptRequestContact = await contact.acceptRequestContact(currentUserId, contactId);
+
+        return res.status(200).send({valueSuccess: !!acceptRequestContact});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(transErrors.server_error);
+    }
+}
+
 module.exports = {
     findUsersContact: findUsersContact,
     addNew: addNew,
-    removeRequestContact: removeRequestContact
+    removeRequestContact: removeRequestContact,
+    acceptRequestContact: acceptRequestContact,
 }

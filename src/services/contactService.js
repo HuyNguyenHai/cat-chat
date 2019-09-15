@@ -3,6 +3,7 @@ import ContactModel from "./../models/contactModel";
 import NotificationModel from "./../models/notificationModel";
 
 import _ from "lodash";
+import { get } from "mongoose";
 
 const LIMIT_NUMBER_TAKEN = 10;
 
@@ -109,11 +110,23 @@ let getContactsReceived = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
   });
 }
 
+let acceptRequestContact = (currentUserId, contactId) => {
+  return new Promise(async(resolve, reject) => {
+    try {
+      await ContactModel.acceptRequestContact(currentUserId, contactId);
+      resolve(true); 
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
   removeRequestContact: removeRequestContact,
   getContacts: getContacts,
   getContactsSent: getContactsSent,
-  getContactsReceived: getContactsReceived
+  getContactsReceived: getContactsReceived,
+  acceptRequestContact: acceptRequestContact
 }
