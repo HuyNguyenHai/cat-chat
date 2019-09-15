@@ -18,7 +18,12 @@ ContactSchema.statics = {
   },
 
   findUsersContact(id) {
-    return this.find({"userId": id}).exec();
+    return this.find({
+     $or: [
+       {userId: id},
+       {contactId: id}
+     ]
+    }).exec();
   },
 
   //Check exist contact of 2 users
@@ -44,7 +49,33 @@ ContactSchema.statics = {
         {"contactId": contactId}
       ]
     }).exec();
-  }
+  },
+
+  getContacts(uid, limit) {
+    return this.find({
+      $and: [
+        {status: true},
+        {$or: [
+          {"userId": uid},
+          {"contactId": uid}
+        ]}
+      ]
+    }).limit(limit).exec();
+  },
+
+  getContactsSent(uid, limit) {
+    return this.find({
+      userId: uid,
+      status: false
+    }).limit(limit).exec();
+  },
+
+  getContactsReceived(uid, limit) {
+    return this.find({
+      contactId: uid,
+      status: false
+    }).limit(limit).exec();
+  },
 };
 
 module.exports = mongoose.model("contact", ContactSchema);

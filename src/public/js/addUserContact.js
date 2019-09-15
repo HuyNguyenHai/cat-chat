@@ -5,9 +5,13 @@ function addUserContact() {
             if(data.valueSuccess){
                 $('#find-user').find(`div.user-add-new-contact[data-uid = ${targetId}]`).hide();
                 $('#find-user').find(`div.user-remove-request-contact[data-uid = ${targetId}]`).css("display", "inline-block");
+                
                 increaseNumNotifContact('count-request-contact-sent');
-                //xu ly realtime tu day
-                console.log(targetId);
+                
+                let newUserContactItem = $('#find-user .find-user-bottom ul li:nth-child(1)').parent().html();
+                
+                $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
+                
                 socket.emit("add-new-contact", {contactId: targetId});
             }
         });

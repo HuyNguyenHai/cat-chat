@@ -2,7 +2,7 @@ function callFindUser(event) {
     if(event.type === "click" || event.which === 13){
         let keyword = $('#input-find-users').val();
         $.get(`/contact/find-users/${keyword}`, function (data) {
-            $('.find-user-bottom ul').html(data);
+            $('#find-user .find-user-bottom ul').html(data);
             addUserContact();//js/addUserContact.js
             removeRequestContact();//js/removeRequestContact
         });

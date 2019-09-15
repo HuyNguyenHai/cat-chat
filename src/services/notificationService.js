@@ -2,12 +2,14 @@ import Notification from "../models/notificationModel";
 import User from "../models/userModel";
 import { get } from "mongoose";
 
+const LIMIT_NUMBER_TAKEN = 10;
+
 /**
  * 
  * @param {String} currentUserId 
  * @param {Number} limit 
  */
-let getNotifications = (currentUserId, limit = 10) => {
+let getNotifications = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
     return new Promise(async(resolve, reject) => {
         try {
             let notifications = await Notification.model.getNotifsByUserIdAndLimit(currentUserId, limit);
