@@ -12,4 +12,5 @@ function callFindUser(event) {
 $(document).ready(function () {
     $('#btn-find-users').bind("click", callFindUser);
     $('#input-find-users').bind("keypress", callFindUser);
+    removeRequestContact();
 });

@@ -4,13 +4,15 @@ function addUserContact() {
         $.post("/contact/add-new", {uid: targetId}, function(data) {
             if(data.valueSuccess){
                 $('#find-user').find(`div.user-add-new-contact[data-uid = ${targetId}]`).hide();
-                $('#find-user').find(`div.user-remove-request-contact[data-uid = ${targetId}]`).css("display", "inline-block");
+                $('#find-user').find(`div.user-remove-request-contact-sent[data-uid = ${targetId}]`).css("display", "inline-block");
                 
                 increaseNumNotifContact('count-request-contact-sent');
                 
                 let newUserContactItem = $('#find-user .find-user-bottom ul li:nth-child(1)').parent().html();
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
+                
+                removeRequestContact();
                 
                 socket.emit("add-new-contact", {contactId: targetId});
             }
