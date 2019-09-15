@@ -7,11 +7,6 @@ let getHome = async(req, res) => {
   let contactsSent = await contact.getContactsSent(req.user._id);
   let contactsReceived = await contact.getContactsReceived(req.user._id);
 
-  console.log("contacts:", contacts);
-  console.log("contacts Sent:", contactsSent);
-  console.log("contacts Received:", contactsReceived);
-  console.log("-------------------------");
-  
   res.render("main/home/home", {
     errors: req.flash("errors"),
     successes: req.flash("successes"),
