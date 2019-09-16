@@ -8,7 +8,8 @@ function addUserContact() {
                 
                 increaseNumNotifContact('count-request-contact-sent');
                 
-                let newUserContactItem = $('#find-user .find-user-bottom ul li:nth-child(1)').parent().html();
+                let newUserContactItem = $(`#find-user .find-user-bottom ul li[data-uid = ${targetId}]`).html();
+                newUserContactItem = `<li class="_contactList" data-uid="${targetId}">${newUserContactItem}</li>`;
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
                 
@@ -40,7 +41,7 @@ socket.on("response-add-new-contact", function(user) {
         <div class="user-address">
             <span>&nbsp ${ user.address }.</span>
         </div>
-        <div class="user-acccept-contact-received" data-uid="${ user.id }">
+        <div class="user-accept-contact-received" data-uid="${ user.id }">
             Chấp nhận
         </div>
         <div class="user-reject-request-contact-received action-danger" data-uid="${user.id}">

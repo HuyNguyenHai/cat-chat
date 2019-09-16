@@ -76,6 +76,15 @@ ContactSchema.statics = {
       status: false
     }).limit(limit).exec();
   },
+
+  acceptRequestContact(uid, contactId) {
+    return this.findOneAndUpdate({
+      userId: contactId,
+      contactId: uid
+    }, {
+      status: true
+    }).exec();
+  }
 };
 
 module.exports = mongoose.model("contact", ContactSchema);
