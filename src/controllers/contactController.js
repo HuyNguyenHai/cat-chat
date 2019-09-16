@@ -8,7 +8,6 @@ let findUsersContact = async(req, res, next) => {
         let users = await contact.findUsersContact(currentUserId, keyword); 
         return res.render('main/contacts/sections/findUsersContact', {users});
     } catch (error) {
-        console.log(error);
         return res.status(500).send(transErrors.server_error);
     }
 }
@@ -21,7 +20,6 @@ let addNew = async(req, res, next) => {
     
         return res.status(200).send({valueSuccess: !!newContact});
     } catch (error) {
-        console.log(error);
         return res.status(500).send(transErrors.server_error);
     }
 }
@@ -34,7 +32,6 @@ let removeRequestContact = async(req, res, next) => {
 
         return res.status(200).send({valueSuccess: !!removeContact});
     } catch (error) {
-        console.log(error);
         return res.status(500).send(transErrors.server_error);
     }
 }
@@ -47,7 +44,6 @@ let acceptRequestContact = async (req, res, next) => {
 
         return res.status(200).send({valueSuccess: !!acceptRequestContact});
     } catch (error) {
-        console.log(error);
         return res.status(500).send(transErrors.server_error);
     }
 }

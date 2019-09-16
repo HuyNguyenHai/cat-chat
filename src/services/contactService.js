@@ -53,13 +53,11 @@ let addNew = (currentUserId, contactId) => {
 
 let removeRequestContact = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeRequest = await ContactModel.removeRequestContact(currentUserId, contactId);
-    console.log(removeRequest.result);
-    if(removeRequest.result.n == 0){
-      return reject(false);
-    }
+    let removeDone = await ContactModel.removeRequestContact(currentUserId, contactId);
     await NotificationModel.model.removeRequestContactNotif(currentUserId, contactId, NotificationModel.types.ADD_CONTACT);
-    resolve(true);
+    
+    if(removeDone.result.n === 1) resolve(true);
+    else reject(false);
   });
 }
 

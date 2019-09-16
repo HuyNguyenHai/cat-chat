@@ -8,7 +8,8 @@ function addUserContact() {
                 
                 increaseNumNotifContact('count-request-contact-sent');
                 
-                let newUserContactItem = $('#find-user .find-user-bottom ul li:nth-child(1)').parent().html();
+                let newUserContactItem = $(`#find-user .find-user-bottom ul li[data-uid = ${targetId}]`).html();
+                newUserContactItem = `<li class="_contactList" data-uid="${targetId}">${newUserContactItem}</li>`;
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
                 
