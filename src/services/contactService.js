@@ -54,6 +54,7 @@ let addNew = (currentUserId, contactId) => {
 let removeRequestContact = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
     let removeRequest = await ContactModel.removeRequestContact(currentUserId, contactId);
+    console.log(removeRequest.result);
     if(removeRequest.result.n == 0){
       return reject(false);
     }

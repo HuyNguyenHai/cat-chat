@@ -1,4 +1,4 @@
-function addUserContact() {
+function acceptRequestContact() {
     $('.user-accept-contact-received').bind('click', function (e) {
         let targetId = $(this).data('uid');
         $.ajax({
@@ -44,5 +44,5 @@ function addUserContact() {
 }
 
 $(document).ready(function () {
-    addUserContact();
+    acceptRequestContact();
 });
