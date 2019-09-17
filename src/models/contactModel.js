@@ -60,6 +60,15 @@ ContactSchema.statics = {
     }).exec();
   },
 
+  removeContact(userId, contactId) {
+    return this.remove({
+      $or: [
+        {"contactId": userId, "userId": contactId},
+        {"userId": contactId, "userId": userId}
+      ]
+    }).exec();
+  },
+
   getContacts(uid, limit) {
     return this.find({
       $and: [

@@ -53,6 +53,7 @@ let initRoutes = app => {
   router.post("/contact/add-new", auth.checkLoggedIn, contact.addNew);
   router.delete("/contact/remove-request-contact-sent", auth.checkLoggedIn, contact.removeRequestContactSent);
   router.delete("/contact/remove-request-contact-received", auth.checkLoggedIn, contact.removeRequestContactReceived);
+  router.delete("/contact/remove-contact", auth.checkLoggedIn, contact.removeContact);
   router.put("/contact/accept-request-contact", auth.checkLoggedIn, contact.acceptRequestContact);
   //router.delete("/contact/accept-request-contact", auth.checkLoggedIn, contact.acceptRequestContact);
   

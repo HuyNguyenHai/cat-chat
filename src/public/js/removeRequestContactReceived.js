@@ -25,7 +25,6 @@ socket.on('response-remove-request-contact-received', function(user) {
     
     $('#find-user').find(`div.user-remove-request-contact-sent[data-uid = ${uid}]`).hide();
     $('#find-user').find(`div.user-add-new-contact[data-uid = ${uid}]`).css("display", "inline-block");
-    console.log(uid);
-
+    
     decreaseNumNotifContact('count-request-contact-sent');
 });

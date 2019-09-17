@@ -70,6 +70,15 @@ let removeRequestContactReceived = (currentUserId, contactId) => {
   });
 }
 
+let removeContact = (currentUserId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let removeDone = await ContactModel.removeContact(currentUserId, contactId);
+    
+    if(removeDone.result.n === 1) resolve(true);
+    else reject(false);
+  });
+}
+
 let getContacts = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
   return new Promise(async(resolve, reject) => {
     try {
@@ -137,5 +146,6 @@ module.exports = {
   getContactsSent: getContactsSent,
   getContactsReceived: getContactsReceived,
   acceptRequestContact: acceptRequestContact,
-  removeRequestContactReceived: removeRequestContactReceived
+  removeRequestContactReceived: removeRequestContactReceived,
+  removeContact: removeContact
 }

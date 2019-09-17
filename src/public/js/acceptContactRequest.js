@@ -40,6 +40,7 @@ function acceptRequestContact() {
                 </div>
             </li>`;
                 $('#contacts .find-user-bottom ul').prepend(newContactElement);
+                removeContact();
             }
         });
     });
@@ -74,9 +75,11 @@ socket.on("response-accept-request-contact", function(user) {
     </div>
 </li>`;
     $('#contacts .find-user-bottom ul').prepend(newContactElement);
+    removeContact();
 });
 
 $(document).ready(function () {
     acceptRequestContact();
     removeRequestContactReceived();
+    removeContact();
 });
