@@ -12,6 +12,8 @@ function acceptRequestContact() {
                 let userAddress = requestContactElement.find('.contactPanel .user-address span').text();
                 let username = requestContactElement.find('.contactPanel .user-name p').text();
 
+                socket.emit("accept-request-contact", {contactId: targetId});
+
                 $('#request-contact-received .find-user-bottom').find(`ul li[data-uid = ${targetId}]`).remove();
                 decreaseNumNotifContact('count-request-contact-received');
                 increaseNumNotifContact('count-contacts');
@@ -43,6 +45,38 @@ function acceptRequestContact() {
     });
 }
 
+socket.on("response-accept-request-contact", function(user) {
+    let uid = user.id;
+    $(`#request-contact-sent .find-user-bottom ul li[data-uid = ${uid}]`).remove();
+    $(`#find-user .find-user-bottom ul li[data-uid = ${uid}]`).remove()
+    decreaseNumNotifContact('count-request-contact-sent');
+    increaseNumNotifContact('count-contacts');
+    let newContactElement = `<li class="_contactList" data-uid="${user.id}">
+    <div class="contactPanel">
+        <div class="user-avatar">
+            <img src="images/users/${user.avatar}" alt="">
+        </div>
+        <div class="user-name">
+            <p>
+                ${user.user}
+            </p>
+        </div>
+        <br>
+        <div class="user-address">
+            <span>&nbsp ${user.address}.</span>
+        </div>
+        <div class="user-talk" data-uid="${user.id}">
+            Trò chuyện
+        </div>
+        <div class="user-remove-contact action-danger" data-uid="${user.id}">
+            Xóa liên hệ
+        </div>
+    </div>
+</li>`;
+    $('#contacts .find-user-bottom ul').prepend(newContactElement);
+});
+
 $(document).ready(function () {
     acceptRequestContact();
+    removeRequestContactReceived();
 });
