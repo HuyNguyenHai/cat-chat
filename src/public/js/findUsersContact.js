@@ -4,7 +4,7 @@ function callFindUser(event) {
         $.get(`/contact/find-users/${keyword}`, function (data) {
             $('#find-user .find-user-bottom ul').html(data);
             addUserContact();//js/addUserContact.js
-            removeRequestContact();//js/removeRequestContact
+            removeRequestContactSent();//js/removeRequestContactSent
         });
     }
 }
@@ -17,5 +17,5 @@ $(document).ready(function () {
     if($(`.count-request-contact-received`).find('em').text() === '0') $(`.count-request-contact-received`).text('');
     if($(`.count-contacts`).find('em').text() === '0') $(`.count-contacts`).text('');
 
-    removeRequestContact();
+    removeRequestContactSent();
 });

@@ -13,8 +13,8 @@ function addUserContact() {
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
                 
-                removeRequestContact();
-                
+                removeRequestContactSent();
+
                 socket.emit("add-new-contact", {contactId: targetId});
             }
         });
@@ -44,7 +44,7 @@ socket.on("response-add-new-contact", function(user) {
         <div class="user-accept-contact-received" data-uid="${ user.id }">
             Chấp nhận
         </div>
-        <div class="user-reject-request-contact-received action-danger" data-uid="${user.id}">
+        <div class="user-remove-request-contact-received action-danger" data-uid="${user.id}">
             Xóa yêu cầu
         </div>
     </div>
@@ -52,6 +52,8 @@ socket.on("response-add-new-contact", function(user) {
 
     $('.noti_content').prepend(notif);
     $('#request-contact-received .contactList').prepend(requestContactNotif);
+    acceptRequestContact();
+    removeRequestContactReceived();
 
     increaseNumNotifContact('count-request-contact-received');
     increaseNumNotification('noti_contact_counter');

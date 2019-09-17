@@ -1,9 +1,9 @@
-function removeRequestContact() {
+function removeRequestContactSent() {
     $('.user-remove-request-contact-sent').bind('click', function (e) {
         let targetId = $(this).data('uid');
         $.ajax({
             type: "delete",
-            url: "contact/removeContact",
+            url: "contact/remove-request-contact-sent",
             data: {uid: targetId},
             success: function (data) {
                 if(data.valueSuccess){
@@ -14,14 +14,14 @@ function removeRequestContact() {
                     
                     $(`#request-contact-sent .find-user-bottom ul li[data-uid = ${targetId}]`).remove();
                     
-                    socket.emit('remove-request-contact', {contactId: targetId});
+                    socket.emit('remove-request-contact-sent', {contactId: targetId});
                 }
             }
         });
     });
 }
 
-socket.on('response-remove-request-contact', function(user) {
+socket.on('response-remove-request-contact-sent', function(user) {
     let userIdRemoveRequest = user.id;
     let notif = $('.noti_content').find(`span[data-uid = ${userIdRemoveRequest}]`);
     let requestContactNotif = $('#request-contact-received .contactList').find(`li[data-uid = ${userIdRemoveRequest}]`);
