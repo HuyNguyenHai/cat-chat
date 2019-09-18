@@ -1,5 +1,5 @@
 function acceptRequestContact() {
-    $('.user-accept-contact-received').bind('click', function (e) {
+    $('.user-accept-contact-received').unbind('click').bind('click', function (e) {
         let targetId = $(this).data('uid');
         $.ajax({
             type: "put",

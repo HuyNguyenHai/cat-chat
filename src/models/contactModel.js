@@ -63,8 +63,8 @@ ContactSchema.statics = {
   removeContact(userId, contactId) {
     return this.remove({
       $or: [
-        {"contactId": userId, "userId": contactId},
-        {"userId": contactId, "userId": userId}
+        {"contactId": userId, "userId": contactId, "status": true},
+        {"userId": contactId, "userId": userId, "status": true}
       ]
     }).exec();
   },

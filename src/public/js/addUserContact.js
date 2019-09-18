@@ -1,5 +1,5 @@
 function addUserContact() {
-    $('.user-add-new-contact').bind('click', function (e) {
+    $('.user-add-new-contact').unbind('click').bind('click', function (e) {
         let targetId = $(this).data('uid');
         $.post("/contact/add-new", {uid: targetId}, function(data) {
             if(data.valueSuccess){
@@ -12,10 +12,6 @@ function addUserContact() {
                 newUserContactItem = `<li class="_contactList" data-uid="${targetId}">${newUserContactItem}</li>`;
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
-
-                //error send ajax post duplicately
-                $('#find-user').find(`li[data-uid = ${targetId}]`).remove();
-                $('#find-user .find-user-bottom ul').prepend(newUserContactItem);
 
                 socket.emit("add-new-contact", {contactId: targetId});
 

@@ -13,6 +13,7 @@
 
 html {
   height: 100%;
+  font-size: 15px;
 }
 
 body {
@@ -97,6 +98,10 @@ label:focus,
 .swal-button--remove {
   /*--reject & remove of me in js--*/
   background-color: #ff7979 !important;
+}
+
+.swal2-popup {
+  font-size: 1.5rem;
 }
 
 .swal-button--accept {
