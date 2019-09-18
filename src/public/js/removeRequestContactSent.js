@@ -12,7 +12,7 @@ function removeRequestContactSent() {
                     
                     decreaseNumNotifContact('count-request-contact-sent');
                     
-                    $(`#request-contact-sent .find-user-bottom ul li[data-uid = ${targetId}]`).remove();
+                    $(`#request-contact-sent`).find(`li[data-uid = ${targetId}]`).remove();
                     
                     socket.emit('remove-request-contact-sent', {contactId: targetId});
                 }

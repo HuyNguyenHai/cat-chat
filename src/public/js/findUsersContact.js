@@ -4,7 +4,6 @@ function callFindUser(event) {
         $.get(`/contact/find-users/${keyword}`, function (data) {
             $('#find-user .find-user-bottom ul').html(data);
             addUserContact();//js/addUserContact.js
-            removeRequestContactSent();//js/removeRequestContactSent
         });
     }
 }
@@ -16,6 +15,4 @@ $(document).ready(function () {
     if($(`.count-request-contact-sent`).find('em').text() === '0') $(`.count-request-contact-sent`).text('');
     if($(`.count-request-contact-received`).find('em').text() === '0') $(`.count-request-contact-received`).text('');
     if($(`.count-contacts`).find('em').text() === '0') $(`.count-contacts`).text('');
-
-    removeRequestContactSent();
 });

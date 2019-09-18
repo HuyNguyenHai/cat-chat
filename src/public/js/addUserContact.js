@@ -5,17 +5,22 @@ function addUserContact() {
             if(data.valueSuccess){
                 $('#find-user').find(`div.user-add-new-contact[data-uid = ${targetId}]`).hide();
                 $('#find-user').find(`div.user-remove-request-contact-sent[data-uid = ${targetId}]`).css("display", "inline-block");
-                
+
                 increaseNumNotifContact('count-request-contact-sent');
                 
                 let newUserContactItem = $(`#find-user .find-user-bottom ul li[data-uid = ${targetId}]`).html();
                 newUserContactItem = `<li class="_contactList" data-uid="${targetId}">${newUserContactItem}</li>`;
                 
                 $('#request-contact-sent .find-user-bottom ul').prepend(newUserContactItem);
-                
-                removeRequestContactSent();
+
+                //error send ajax post duplicately
+                $('#find-user').find(`li[data-uid = ${targetId}]`).remove();
+                $('#find-user .find-user-bottom ul').prepend(newUserContactItem);
 
                 socket.emit("add-new-contact", {contactId: targetId});
+
+                removeRequestContactSent();
+                addUserContact();
             }
         });
     });
