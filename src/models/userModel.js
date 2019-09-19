@@ -52,6 +52,10 @@ UserSchema.statics = {
     return this.findById(id).exec();
   },
 
+  getNormalUserDataById(uid) {
+    return this.findById(uid, {_id: 1, user: 1, address: 1, avatar: 1}).sort({createAt: -1}).exec();
+  },
+
   findByFacebookUid(uid){
     return this.findOne({"facebook.uid":uid}).exec();
   },
