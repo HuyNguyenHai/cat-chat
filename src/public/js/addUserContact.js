@@ -25,7 +25,7 @@ function addUserContact() {
 socket.on("response-add-new-contact", function(user) {
     let notif = `<span data-uid="${ user.id }">
     <img class="avatar-small" src="images/users/${ user.avatar }" alt=""> 
-    <strong>${user.user}</strong> đã gửi cho bạn một lời mời kết bạn!
+    <strong>${user.username}</strong> đã gửi cho bạn một lời mời kết bạn!
     </span><br><br><br>`;
 
     let requestContactNotif = `<li class="_contactList" data-uid="${ user.id }">
@@ -35,7 +35,7 @@ socket.on("response-add-new-contact", function(user) {
         </div>
         <div class="user-name">
             <p>
-                ${ user.user }
+                ${ user.username }
             </p>
         </div>
         <br>
