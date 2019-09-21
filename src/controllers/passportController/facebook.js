@@ -24,7 +24,7 @@ let initPassportFacebook = () => {
     try {
         let user = await UserModel.findByFacebookUid(profile.uid);
         if(user){
-          return done(null, user, req.flash("successes", transSuccess.loginSuccess(user.user))); 
+          return done(null, user, req.flash("successes", transSuccess.loginSuccess(user.username))); 
         }
         
         //Create a new user if can't find 
@@ -40,7 +40,7 @@ let initPassportFacebook = () => {
         };
 
         let newUser = UserModel.createNew(newUserItem);
-        return done(null, newUser, req.flash("successes", transSuccess.loginSuccess(newUser.user))); 
+        return done(null, newUser, req.flash("successes", transSuccess.loginSuccess(newUser.username))); 
 
     } catch (error) {
       console.log(error);

@@ -12,7 +12,7 @@ let acceptRequestContact = (io) => {
 
         socket.on('accept-request-contact', (data) => {
             let currentUser = {
-                user: socket.request.user.user,
+                user: socket.request.user.username,
                 avatar: socket.request.user.avatar,
                 id: socket.request.user._id,
                 address: socket.request.user.address

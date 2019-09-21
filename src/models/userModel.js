@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-  user: String,
+  username: String,
   gender: {type: String, default: "male"},
   phone: {type: String, default: null},
   address: {type: String, default: null},
@@ -26,9 +26,9 @@ let UserSchema = new Schema({
     token: String,
     email: {type:String, trim: true}
   },
-  createAt: {type: Number, default: Date.now},
-  updateAt: {type: Number, default: null},
-  deleteAt: {type: Number, default: null}
+  createdAt: {type: Number, default: Date.now},
+  updatedAt: {type: Number, default: null},
+  deletedAt: {type: Number, default: null}
 });
 
 UserSchema.statics = {
@@ -53,7 +53,7 @@ UserSchema.statics = {
   },
 
   getNormalUserDataById(uid) {
-    return this.findById(uid, {_id: 1, user: 1, address: 1, avatar: 1}).sort({createAt: -1}).exec();
+    return this.findById(uid, {_id: 1, username: 1, address: 1, avatar: 1}).sort({createdAt: -1}).exec();
   },
 
   findByFacebookUid(uid){
@@ -83,13 +83,13 @@ UserSchema.statics = {
           {"_id": {$nin: id}},
           {"local.isActive": true},
           {$or: [
-              {"user": {"$regex": new RegExp(keyword, "i")}},
+              {"username": {"$regex": new RegExp(keyword, "i")}},
               // {"local.email": {"$regex": keyword}},
               // // {"facebook.email": {"$regex": keyword}},
               // // {"google.email": {"$regex": keyword}}
           ]}
       ]
-    }, {_id: 1, user: 1, address: 1, avatar: 1}).exec();
+    }, {_id: 1, username: 1, address: 1, avatar: 1}).exec();
   }
 };
 

@@ -7,9 +7,9 @@ let ContactSchema = new Schema({
   userId: String,
   contactId: String,
   status: {type: Boolean, Default: false},
-  createAt: {type: Number, default: Date.now},
-  updateAt: {type: Number, default: null},
-  deleteAt: {type: Number, default: null}
+  createdAt: {type: Number, default: Date.now},
+  updatedAt: {type: Number, default: null},
+  deletedAt: {type: Number, default: null}
 });
 
 ContactSchema.statics = {
@@ -78,7 +78,7 @@ ContactSchema.statics = {
           {"contactId": uid}
         ]}
       ]
-    }).limit(limit).exec();
+    }).sort({updatedAt: -1}).limit(limit).exec();
   },
 
   getContactsSent(uid, limit) {
@@ -100,7 +100,8 @@ ContactSchema.statics = {
       userId: contactId,
       contactId: uid
     }, {
-      status: true
+      status: true,
+      updatedAt: Date.now()
     }).exec();
   }
 };

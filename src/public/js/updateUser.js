@@ -53,11 +53,11 @@ function UpdateUserInfo() {
 
     if(!regexUsername.test(username)  || username.length < 3 || username.length > 17){
       alertify.notify("Khong qua 17 ki tu va khong dung ky tu dac biet.", "error", 7);
-      $(this).val(currentUserInfo.user);
-      delete(userInfo.user);
+      $(this).val(currentUserInfo.username);
+      delete(userInfo.username);
       return false;
     }
-    userInfo.user = username;
+    userInfo.username = username;
   });
 
   $("#input-change-gender-male").bind("click", function() {
@@ -194,7 +194,7 @@ function callUpdateUserInfo(){
       currentUserInfo = Object.assign(currentUserInfo, userInfo);
 
       //Update username in navbar
-      $("#username-navbar").text(currentUserInfo.user);
+      $("#username-navbar").text(currentUserInfo.username);
 
       $("#input-btn-cancel-update-user").click();
     },
@@ -264,7 +264,7 @@ $(document).ready(function () {
     $("#user-modal-avatar").attr("src", currentAvatar);
 
     //Reset Current User Info
-    $("#input-change-username").val(currentUserInfo.user);
+    $("#input-change-username").val(currentUserInfo.username);
     (currentUserInfo.gender === "male")?$("#input-change-gender-male").click():$("#input-change-gender-female").click();
     $("#input-change-address").val(currentUserInfo.address);
     $("#input-change-phone").val(currentUserInfo.phone);

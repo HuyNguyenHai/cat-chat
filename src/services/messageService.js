@@ -1,7 +1,6 @@
 import ContactModel from '../models/contactModel';
 import UserModel from '../models/userModel';
 import ChatGroupModel from '../models/chatGroupModel';
-import { user } from '.';
 
 const LIMIT_CONVERSATIONS_TAKEN = 15;
 /**
@@ -16,11 +15,11 @@ let getAllConversations = (currentUserId) => {
             let userConversationsPromise = contacts.map(async (contact) => {
                 if (contact.userId == currentUserId) {
                     let userConversation = await UserModel.getNormalUserDataById(contact.contactId);
-                    userConversation.createAt = contact.createAt;
+                    userConversation.updatedAt = contact.updatedAt;
                     return userConversation;
                 } else {
                     let userConversation = await UserModel.getNormalUserDataById(contact.userId);
-                    userConversation.createAt = contact.createAt;
+                    userConversation.updatedAt = contact.updatedAt;
                     return userConversation;
                 }
             })
@@ -31,7 +30,7 @@ let getAllConversations = (currentUserId) => {
             let allConversations = userConversations.concat(groupConversations);
 
             allConversations.sort(function(a, b) {
-                return b.createAt - a.createAt;
+                return b.updatedAt - a.updatedAt;
             });
 
             resolve({

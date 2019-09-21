@@ -59,7 +59,7 @@ socket.on("response-accept-request-contact", function(user) {
         </div>
         <div class="user-name">
             <p>
-                ${user.user}
+                ${user.username}
             </p>
         </div>
         <br>

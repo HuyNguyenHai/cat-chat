@@ -15,34 +15,37 @@
                 <ul class="people no-padding-start">
                     <% allConversations.forEach((conversation) => {
                         if(conversation.name) { %>
-                            <a href="#uid_<%= conversation._id %>" class="room-chat">
-                                <li class="person group-chat" data-chat="<%= conversation._id %>">
-                                    <div class="left-avatar">
-                                        <!-- <div class="dot"></div> -->
-                                        <img src="https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg"
-                                            alt="">
-                                    </div>
-                                    <span class="name">
-                                        <span class="group-chat-name">Group:</span> <%= conversation.name %>
-                                    </span>
-                                    <span class="time">Hai giờ trước</span>
-                                    <span class="preview">Chào cả nhóm</span>
-                                </li>
-                            </a>
+                    <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <li class="person group-chat" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <!-- <div class="dot"></div> -->
+                                <img src="https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg"
+                                    alt="">
+                            </div>
+                            <span class="name">
+                                <% var MAX_LEN = 15; %>
+                                <span
+                                    class="group-chat-name"><%= (conversation.name.length <= MAX_LEN)?conversation.name:(conversation.name.slice(0, MAX_LEN) + "...") %></span>
+                            </span>
+                            <span class="time">Hai giờ trước</span>
+                            <span class="preview">Chào cả nhóm</span>
+                        </li>
+                    </a>
                     <% } else { %>
-                        <a href="#uid_<%= conversation._id %>" class="room-chat">
-                            <li class="person" data-chat="<%= conversation._id %>">
-                                <div class="left-avatar">
-                                    <div class="dot"></div>
-                                    <img src="images/users/<%= conversation.avatar %>" alt="">
-                                </div>
-                                <span class="name">
-                                    <%= conversation.user %>
-                                </span>
-                                <span class="time">Một phút trước</span>
-                                <span class="preview">Xin chào</span>
-                            </li>
-                        </a>
+                    <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <li class="person" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <div class="dot"></div>
+                                <img src="images/users/<%= conversation.avatar %>" alt="">
+                            </div>
+                            <span class="name">
+                                    <% var MAX_LEN = 15; %>
+                                    <%= (conversation.username.length <= MAX_LEN)?conversation.username:(conversation.username.slice(0, MAX_LEN) + "...") %>
+                            </span>
+                            <span class="time">Một phút trước</span>
+                            <span class="preview">Xin chào</span>
+                        </li>
+                    </a>
                     <% }
                      }); %>
                 </ul>
@@ -51,40 +54,43 @@
             <div class="tab-pane" id="user-chat">
                 <ul class="people no-padding-start">
                     <% userConversations.forEach((conversation) => { %>
-                        <a href="#uid_<%= conversation._id %>" class="room-chat">
-                            <li class="person" data-chat="<%= conversation._id %>">
-                                <div class="left-avatar">
-                                    <div class="dot"></div>
-                                    <img src="images/users/<%= conversation.avatar %>" alt="">
-                                </div>
-                                <span class="name">
-                                    <%= conversation.user %>
-                                </span>
-                                <span class="time">Một phút trước</span>
-                                <span class="preview">Xin chào</span>
-                            </li>
-                        </a>
+                    <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <li class="person" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <div class="dot"></div>
+                                <img src="images/users/<%= conversation.avatar %>" alt="">
+                            </div>
+                            <span class="name">
+                                <% var MAX_LEN = 15; %>
+                                <%= (conversation.username.length <= MAX_LEN)?conversation.username:(conversation.username.slice(0, MAX_LEN) + "...") %>
+                            </span>
+                            <span class="time">Một phút trước</span>
+                            <span class="preview">Xin chào</span>
+                        </li>
+                    </a>
                     <% }); %>
                 </ul>
             </div>
 
             <div class="tab-pane" id="group-chat">
                 <ul class="people no-padding-start">
-                <% groupConversations.forEach((conversation) => { %>
-                        <a href="#uid_<%= conversation._id %>" class="room-chat">
-                            <li class="person group-chat" data-chat="<%= conversation._id %>">
-                                <div class="left-avatar">
-                                    <!-- <div class="dot"></div> -->
-                                    <img src="https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg"
-                                            alt="">
-                                </div>
-                                <span class="name">
-                                    <span class="group-chat-name">Group:</span> <%= conversation.name %>
-                                </span>
-                                <span class="time">Hai giờ trước</span>
-                                <span class="preview">Chào cả nhóm</span>
-                            </li>
-                        </a>
+                    <% groupConversations.forEach((conversation) => { %>
+                    <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <li class="person group-chat" data-chat="<%= conversation._id %>">
+                            <div class="left-avatar">
+                                <!-- <div class="dot"></div> -->
+                                <img src="https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg"
+                                    alt="">
+                            </div>
+                            <span class="name">
+                                <% var MAX_LEN = 15; %>
+                                <span
+                                    class="group-chat-name"><%= (conversation.name.length <= MAX_LEN)?conversation.name:(conversation.name.slice(0, MAX_LEN) + "...") %></span>
+                            </span>
+                            <span class="time">Hai giờ trước</span>
+                            <span class="preview">Chào cả nhóm</span>
+                        </li>
+                    </a>
                     <% }) %>
                 </ul>
             </div>
