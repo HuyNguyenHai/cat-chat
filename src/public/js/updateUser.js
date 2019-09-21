@@ -194,7 +194,7 @@ function callUpdateUserInfo(){
       currentUserInfo = Object.assign(currentUserInfo, userInfo);
 
       //Update username in navbar
-      $("#username-navbar").text(currentAvatar.username);
+      $("#username-navbar").text(currentUserInfo.user);
 
       $("#input-btn-cancel-update-user").click();
     },
