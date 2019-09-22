@@ -1292,3 +1292,8 @@ label:focus,
 #user-alert-error, #user-alert-success, #alert-user-password-success, #alert-user-password-error{
   display: none;
 }
+
+#screen-chat {
+  width: 100%;
+  height: 100%;
+}

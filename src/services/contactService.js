@@ -86,9 +86,9 @@ let getContacts = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
 
       let users = contacts.map(async (contact) => {
         if(contact.userId === currentUserId){
-          return await UserModel.findUserById(contact.contactId); 
+          return await UserModel.findUserByIdForSessionToUse(contact.contactId); 
         }
-        else return await UserModel.findUserById(contact.userId);
+        else return await UserModel.findUserByIdForSessionToUse(contact.userId);
       })
       resolve(await Promise.all(users));
     } catch (error) {
@@ -103,7 +103,7 @@ let getContactsSent = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
       let contacts = await ContactModel.getContactsSent(currentUserId, limit);
 
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.contactId);
+        return await UserModel.findUserByIdForSessionToUse(contact.contactId);
       })
       resolve(await Promise.all(users));
     } catch (error) {
@@ -118,7 +118,7 @@ let getContactsReceived = (currentUserId, limit = LIMIT_NUMBER_TAKEN) => {
       let contacts = await ContactModel.getContactsReceived(currentUserId, limit);
 
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.userId);
+        return await UserModel.findUserByIdForSessionToUse(contact.userId);
       })
       resolve(await Promise.all(users));
     } catch (error) {
