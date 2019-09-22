@@ -152,6 +152,7 @@ function changeTypeChat() {
     optionSelected.tab('show');
     if (optionSelected.val() === 'user-chat') $('.create-group-chat').hide();
     else $('.create-group-chat').show();
+    $('.tab-content .tab-pane.active ul a')[0].click();
   });
 }
 
