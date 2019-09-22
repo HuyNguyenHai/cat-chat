@@ -13,7 +13,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="all-chat">
                 <ul class="people no-padding-start">
-                    <% allConversations.forEach((conversation) => {
+                    <% allConversationsWithMessages.forEach((conversation) => {
                         if(conversation.name) { %>
                     <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                         <li class="person group-chat" data-chat="<%= conversation._id %>">
@@ -27,8 +27,30 @@
                                 <span
                                     class="group-chat-name"><%= (conversation.name.length <= MAX_LEN)?conversation.name:(conversation.name.slice(0, MAX_LEN) + "...") %></span>
                             </span>
-                            <span class="time">Hai giờ trước</span>
-                            <span class="preview">Chào cả nhóm</span>
+
+                            <span class="time">
+                                <% if(conversation.messages != undefined){ %>
+                                    <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                <%= convertTimestampToHumanTime(conversation.messages[conversation.messages.length-1].createdAt) %>
+                                <% }} %>
+                            </span>
+                            
+                            <% if(conversation.messages != undefined) { %>
+                                <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <% if(conversation.messages[conversation.messages.length-1].messageType == "text"){ %>
+                                        <% var REVIEW_MAX_LEN = 30;
+                                        var messageText = conversation.messages[conversation.messages.length-1].text;
+                                        var review =  (messageText.length <= REVIEW_MAX_LEN)?messageText:(messageText.slice(0, REVIEW_MAX_LEN) + "...") %>
+                                        <span class="preview"><%=review%></span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "file"){ %>
+                                        <span class="preview">Đã gửi một file</span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "image"){ %>
+                                        <span class="preview">Đã gửi một ảnh</span>
+                                    <% } %>
+                                <% } %>
+                            <% } else { %>
+                                <span class="preview"></span>
+                            <% } %>
                         </li>
                     </a>
                     <% } else { %>
@@ -42,8 +64,29 @@
                                     <% var MAX_LEN = 15; %>
                                     <%= (conversation.username.length <= MAX_LEN)?conversation.username:(conversation.username.slice(0, MAX_LEN) + "...") %>
                             </span>
-                            <span class="time">Một phút trước</span>
-                            <span class="preview">Xin chào</span>
+                            <span class="time">
+                                    <% if(conversation.messages != undefined){ %>
+                                        <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <%= convertTimestampToHumanTime(conversation.messages[conversation.messages.length-1].createdAt) %>
+                                    <% }} %>
+                            </span>
+                            
+                            <% if(conversation.messages != undefined) { %>
+                                <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <% if(conversation.messages[conversation.messages.length-1].messageType == "text"){ %>
+                                        <% var REVIEW_MAX_LEN = 30;
+                                        var messageText = conversation.messages[conversation.messages.length-1].text;
+                                        var review =  (messageText.length <= REVIEW_MAX_LEN)?messageText:(messageText.slice(0, REVIEW_MAX_LEN) + "...") %>
+                                        <span class="preview"><%=review%></span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "file"){ %>
+                                        <span class="preview">Đã gửi một file</span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "image"){ %>
+                                        <span class="preview">Đã gửi một ảnh</span>
+                                    <% } %>
+                                <% } %>
+                            <% } else { %>
+                                <span class="preview"></span>
+                            <% } %>
                         </li>
                     </a>
                     <% }
@@ -53,7 +96,8 @@
 
             <div class="tab-pane" id="user-chat">
                 <ul class="people no-padding-start">
-                    <% userConversations.forEach((conversation) => { %>
+                        <% allConversationsWithMessages.forEach((conversation) => {
+                            if(!conversation.name) { %>
                     <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                         <li class="person" data-chat="<%= conversation._id %>">
                             <div class="left-avatar">
@@ -64,17 +108,40 @@
                                 <% var MAX_LEN = 15; %>
                                 <%= (conversation.username.length <= MAX_LEN)?conversation.username:(conversation.username.slice(0, MAX_LEN) + "...") %>
                             </span>
-                            <span class="time">Một phút trước</span>
-                            <span class="preview">Xin chào</span>
+                            <span class="time">
+                                    <% if(conversation.messages != undefined){ %>
+                                        <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <%= convertTimestampToHumanTime(conversation.messages[conversation.messages.length-1].createdAt) %>
+                                    <% }} %>
+                            </span>
+                            
+                            <% if(conversation.messages != undefined) { %>
+                                <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <% if(conversation.messages[conversation.messages.length-1].messageType == "text"){ %>
+                                        <% var REVIEW_MAX_LEN = 30;
+                                        var messageText = conversation.messages[conversation.messages.length-1].text;
+                                        var review =  (messageText.length <= REVIEW_MAX_LEN)?messageText:(messageText.slice(0, REVIEW_MAX_LEN) + "...") %>
+                                        <span class="preview"><%=review%></span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "file"){ %>
+                                        <span class="preview">Đã gửi một file</span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "image"){ %>
+                                        <span class="preview">Đã gửi một ảnh</span>
+                                    <% } %>
+                                <% } %>
+                            <% } else { %>
+                                <span class="preview"></span>
+                            <% } %>
                         </li>
                     </a>
+                    <% } %>
                     <% }); %>
                 </ul>
             </div>
 
             <div class="tab-pane" id="group-chat">
                 <ul class="people no-padding-start">
-                    <% groupConversations.forEach((conversation) => { %>
+                    <% allConversationsWithMessages.forEach((conversation) => {
+                        if(conversation.name) { %>
                     <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                         <li class="person group-chat" data-chat="<%= conversation._id %>">
                             <div class="left-avatar">
@@ -87,10 +154,32 @@
                                 <span
                                     class="group-chat-name"><%= (conversation.name.length <= MAX_LEN)?conversation.name:(conversation.name.slice(0, MAX_LEN) + "...") %></span>
                             </span>
-                            <span class="time">Hai giờ trước</span>
-                            <span class="preview">Chào cả nhóm</span>
+                            <span class="time">
+                                    <% if(conversation.messages != undefined){ %>
+                                        <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <%= convertTimestampToHumanTime(conversation.messages[conversation.messages.length-1].createdAt) %>
+                                    <% }} %>
+                            </span>
+                            
+                            <% if(conversation.messages != undefined) { %>
+                                <% if(conversation.messages[conversation.messages.length-1] != undefined){ %>
+                                    <% if(conversation.messages[conversation.messages.length-1].messageType == "text"){ %>
+                                        <% var REVIEW_MAX_LEN = 30;
+                                        var messageText = conversation.messages[conversation.messages.length-1].text;
+                                        var review =  (messageText.length <= REVIEW_MAX_LEN)?messageText:(messageText.slice(0, REVIEW_MAX_LEN) + "...") %>
+                                        <span class="preview"><%=review%></span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "file"){ %>
+                                        <span class="preview">Đã gửi một file</span>
+                                    <% } else if(conversation.messages[conversation.messages.length-1].messageType == "image"){ %>
+                                        <span class="preview">Đã gửi một ảnh</span>
+                                    <% } %>
+                                <% } %>
+                            <% } else { %>
+                                <span class="preview"></span>
+                            <% } %>
                         </li>
                     </a>
+                    <% } %>
                     <% }) %>
                 </ul>
             </div>
