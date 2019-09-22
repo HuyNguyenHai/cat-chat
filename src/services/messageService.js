@@ -1,8 +1,10 @@
 import ContactModel from '../models/contactModel';
 import UserModel from '../models/userModel';
 import ChatGroupModel from '../models/chatGroupModel';
+import MessageModel from '../models/messageModel';
 
 const LIMIT_CONVERSATIONS_TAKEN = 15;
+const LIMIT_MESSAGES_TAKEN = 20;
 /**
  * 
  * @param {String} currentUserId 
@@ -29,14 +31,27 @@ let getAllConversations = (currentUserId) => {
 
             let allConversations = userConversations.concat(groupConversations);
 
-            allConversations.sort(function(a, b) {
+            allConversations.sort((a, b) => {
                 return b.updatedAt - a.updatedAt;
             });
 
+            let allConversationsWithMessagesPromise = allConversations.map(async (conversation) => {
+                let messages = await MessageModel.model.getMessages(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
+                conversation = conversation.toObject();
+                conversation.messages = messages;
+                return conversation;
+            });
+             
+            let allConversationsWithMessages = await Promise.all(allConversationsWithMessagesPromise);
+            allConversationsWithMessages.sort((a, b) => {
+                return b.updatedAt - a.updatedAt;
+            })
+                
             resolve({
                 userConversations: userConversations,
                 groupConversations: groupConversations,
-                allConversations: allConversations
+                allConversations: allConversations,
+                allConversationsWithMessages: allConversationsWithMessages
             });
         } catch (error) {
             reject(error);
