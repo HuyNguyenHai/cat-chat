@@ -85,24 +85,29 @@ function configNotification() {
 }
 
 function gridPhotos(layoutNumber) {
-  let countRows = Math.ceil($('#imagesModal').find('div.all-images>img').length / layoutNumber);
-  let layoutStr = new Array(countRows).fill(layoutNumber).join("");
-  $('#imagesModal').find('div.all-images').photosetGrid({
-    highresLinks: true,
-    rel: 'withhearts-gallery',
-    gutter: '2px',
-    layout: layoutStr,
-    onComplete: function () {
-      $('.all-images').css({
-        'visibility': 'visible'
-      });
-      $('.all-images a').colorbox({
-        photo: true,
-        scalePhotos: true,
-        maxHeight: '90%',
-        maxWidth: '90%'
-      });
-    }
+  $('.show-images').unbind("click").bind("click", function (e) {
+    let href = $(this).attr("href");
+    let modalId = href.replace('#', '');
+
+    let countRows = Math.ceil($(`#${modalId}`).find('div.all-images>img').length / layoutNumber);
+    let layoutStr = new Array(countRows).fill(layoutNumber).join("");
+    $(`#${modalId}`).find('div.all-images').photosetGrid({
+      highresLinks: true,
+      rel: 'withhearts-gallery',
+      gutter: '2px',
+      layout: layoutStr,
+      onComplete: function () {
+        $(`#${modalId}`).find('.all-images').css({
+          'visibility': 'visible'
+        });
+        $(`#${modalId}`).find('.all-images a').colorbox({
+          photo: true,
+          scalePhotos: true,
+          maxHeight: '90%',
+          maxWidth: '90%'
+        });
+      }
+    });
   });
 }
 
@@ -145,7 +150,7 @@ function changeTypeChat() {
   $('#select-type-chat').bind('change', function () {
     let optionSelected = $('option:selected', this);
     optionSelected.tab('show');
-    if(optionSelected.val() === 'user-chat') $('.create-group-chat').hide();
+    if (optionSelected.val() === 'user-chat') $('.create-group-chat').hide();
     else $('.create-group-chat').show();
   });
 }

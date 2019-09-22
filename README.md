@@ -1,10 +1,8 @@
-# moewed-group
-A group chat for whose love cats
+# cat-chat
+Just a basic messenger application
 
-# awesome-chat-third-party-libraries
-Tổng hợp những thư viện bên thứ 3 sử dụng cho dự án Awesome Chat.
-
-Repo này lưu trữ những thư viện với chính xác các phiên bản như sau:
+# cat-chat-third-party-libraries
+All third party libraries use in this application:
 
 - bootstrap: **^3.3.7**
 - font-awesome **^4.7.0**
