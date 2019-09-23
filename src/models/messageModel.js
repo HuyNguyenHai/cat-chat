@@ -26,12 +26,12 @@ let MessageSchema = new Schema({
 
 MessageSchema.statics = {
   /**
-   * get message by senderId and receiverId with limit
+   * get messages by senderId and receiverId with limit
    * @param {String} senderId current user's id
    * @param {String} receiverId 
    * @param {String} limit 
    */
-  getMessages(senderId, receiverId, limit) {
+  getMessagesInPersonal(senderId, receiverId, limit) {
     return this.find({
       $or: [
         {$and: [
@@ -43,6 +43,18 @@ MessageSchema.statics = {
           {receiverId: senderId}
         ]}
       ]
+    }).sort({createdAt: 1}).limit(limit).exec();
+  },
+
+  /**
+   * get messages in a group
+   * @param {String} senderId 
+   * @param {String} receiverId 
+   * @param {Number} limit 
+   */
+  getMessagesInGroup(receiverId, limit) {
+    return this.find({
+      receiverId: receiverId
     }).sort({createdAt: 1}).limit(limit).exec();
   }
 };
