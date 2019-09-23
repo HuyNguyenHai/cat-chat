@@ -465,6 +465,14 @@ label:focus,
   border-radius: 16px 16px 0 16px;
 }
 
+.me .avatar-small {
+  margin-left: 10px;
+}
+
+.you .avatar-small {
+  margin-right: 10px;
+}
+
 .active {
   background-color: #2ECC71;
   color: #fff;
