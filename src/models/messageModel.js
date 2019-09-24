@@ -25,6 +25,9 @@ let MessageSchema = new Schema({
 });
 
 MessageSchema.statics = {
+  createNew(item){
+    return this.create(item);
+  },
   /**
    * get messages by senderId and receiverId with limit
    * @param {String} senderId current user's id
@@ -60,7 +63,7 @@ MessageSchema.statics = {
 };
 
 const CONVERSATION_TYPES = {
-  GROUP: "group",
+  GROUP: "group", 
   PERSONAL: "personal"
 }
 

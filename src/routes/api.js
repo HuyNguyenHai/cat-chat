@@ -1,6 +1,6 @@
 import express from "express";
-import { home, auth, user, contact } from "../controllers";
-import { authValid, userValid } from "../validation";
+import { home, auth, user, contact, message } from "../controllers";
+import { authValid, userValid, messageValid } from "../validation";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -56,6 +56,8 @@ let initRoutes = app => {
   router.delete("/contact/remove-contact", auth.checkLoggedIn, contact.removeContact);
   router.put("/contact/accept-request-contact", auth.checkLoggedIn, contact.acceptRequestContact);
   //router.delete("/contact/accept-request-contact", auth.checkLoggedIn, contact.acceptRequestContact);
+
+  router.post("/message/add-new-message", auth.checkLoggedIn, messageValid.checkMessageLength, message.addNewMessage);
   
   return app.use("/", router);
 };
