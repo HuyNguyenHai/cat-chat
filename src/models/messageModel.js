@@ -46,7 +46,7 @@ MessageSchema.statics = {
           {receiverId: senderId}
         ]}
       ]
-    }).sort({createdAt: 1}).limit(limit).exec();
+    }).sort({createdAt: -1}).limit(limit).exec();
   },
 
   /**
@@ -58,7 +58,7 @@ MessageSchema.statics = {
   getMessagesInGroup(receiverId, limit) {
     return this.find({
       receiverId: receiverId
-    }).sort({createdAt: 1}).limit(limit).exec();
+    }).sort({createdAt: -1}).limit(limit).exec();
   }
 };
 

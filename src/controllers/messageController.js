@@ -27,7 +27,7 @@ let addNewMessage = async(req, res, next) => {
 
         let newMessage = await message.addNewMessage(sender, receiverId, messageValue, isChatGroup);
 
-        
+
         return res.status(200).send({message: newMessage});
     } catch (error) {
         console.log(error);

@@ -7,7 +7,7 @@ import {transErrors} from '../../lang/vi';
 import { user } from '.';
 
 const LIMIT_CONVERSATIONS_TAKEN = 15;
-const LIMIT_MESSAGES_TAKEN = 20;
+const LIMIT_MESSAGES_TAKEN = 30;
 /**
  * 
  * @param {String} currentUserId 
@@ -42,11 +42,11 @@ let getAllConversations = (currentUserId) => {
                 if(conversation.members){
                     let messages = await MessageModel.model.getMessagesInGroup(conversation._id, LIMIT_MESSAGES_TAKEN);
                     conversation = conversation.toObject();
-                    conversation.messages = messages;
+                    conversation.messages = Array.reverse(messages);
                 } else {
                     let messages = await MessageModel.model.getMessagesInPersonal(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
                     conversation = conversation.toObject();
-                    conversation.messages = messages;
+                    conversation.messages = Array.reverse(messages);
                 }
                 return conversation;
             });

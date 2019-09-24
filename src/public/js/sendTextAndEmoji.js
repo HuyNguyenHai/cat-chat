@@ -1,4 +1,4 @@
-function sendMessage(divId) {
+function sendTextAndEmoji(divId) {
     $('.emojionearea').unbind('keyup').bind('keyup', function(event) {
         if(event.which == 13) {
             let targetId = $(`#write-chat-${divId}`).data('chat');
@@ -19,7 +19,7 @@ function sendMessage(divId) {
 
             $.post("/message/add-new-message", dataTextEmojiForSend,
                 function (data) {
-                    console.log(data.message);
+                    
                 }
             ).fail(function(response) {
                 alertify.notify(response.responseText, "error", 7);

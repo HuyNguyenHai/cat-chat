@@ -41,7 +41,7 @@ function enableEmojioneArea(divId) {
         $(`#write-chat-${divId}`).val(this.getText());
       },
       click: function () {
-        sendMessage(divId);
+        sendTextAndEmoji(divId);
       }
     },
   });
@@ -155,18 +155,17 @@ function changeTypeChat() {
     optionSelected.tab('show');
     if (optionSelected.val() === 'user-chat') $('.create-group-chat').hide();
     else $('.create-group-chat').show();
-    $('.tab-content .tab-pane.active ul a')[0].click();
   });
 }
 
 function changeScreenChat() {
   $('.room-chat').unbind('click').bind('click', function (e) {
-    $('.person').removeClass('active');
-    $(this).find('li').addClass('active');
+    let divId = $(this).find("li").data('chat');
+    $(`.person`).removeClass('active');
+    $(`.person[data-chat=${divId}]`).addClass('active');
     $(this).tab('show');
 
     //cau hinh thanh cuon moi khi chon 1 cuoc tro chuyen
-    let divId = $(this).find("li").data('chat');
     nineScrollRight(divId);
     enableEmojioneArea(divId);
   });
