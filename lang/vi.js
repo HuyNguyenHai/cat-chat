@@ -7,7 +7,9 @@ export const transValidation = {
   update_username: "Khong qua 17 ki tu va khong dung ky tu dac biet.",
   update_gender: "Gioi tinh sai, dung nghich inspect nua.",
   update_address: "Dia chi nha gioi han 30 kis tu.",
-  update_phone: "So dien thoai phai bao gom cac chu so."
+  update_phone: "So dien thoai phai bao gom cac chu so.",
+
+  message_incorrect: "Tin nhan can it nhat 1 ki tu va nhieu nhat la 400 ki tu."
 }
 
 export const transErrors = {
@@ -19,7 +21,9 @@ export const transErrors = {
   server_error: "Server có lỗi. Vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để được hỗ trợ.",
   invalid_file: "File khong hop le",
   avatar_size: "File avatar khong duoc vuot qua 1Mb. Hay chon anh khac.",
-  update_password_incorrect: "Khong thay doi duoc mat khau do nhap mat khau khong dung."
+  update_password_incorrect: "Khong thay doi duoc mat khau do nhap mat khau khong dung.",
+  get_chat_group_fail: "Không tìm thấy group phù hợp.",
+  get_user_fail: "Không tìm thấy user nhận tin."
 }
 
 export const transSuccess = {

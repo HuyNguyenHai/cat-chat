@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { message } from "../services";
 
 let Schema = mongoose.Schema;
 
@@ -20,6 +21,17 @@ ChatGroupSchema.statics = {
     return this.find({
       "members": {$elemMatch: {"userId": userId}}
     }).sort({"createdAt": -1}).limit(limit).exec();
+  },
+
+  getChatGroupById(id) {
+    return this.findById(id).exec();
+  },
+
+  updateWhenHaveNewMessage(id, messageAmount) {
+    return this.findByIdAndUpdate(id, {
+      messageAmount: messageAmount,
+      updatedAt: Date.now()
+    }).exec();
   }
 }
 
