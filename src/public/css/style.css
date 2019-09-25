@@ -1129,6 +1129,10 @@ label:focus,
   float: left;
 }
 
+.right .convert-emoji .emojione{
+  float: none !important;
+}
+
 .right .bubble.me a {
   float: left;
   border-bottom: 1.5px solid #c8d6e5;

@@ -49,6 +49,7 @@ function enableEmojioneArea(divId) {
     event.preventDefault();
     $('.emojionearea-button').click();
     $('.emojionearea-editor').focus();
+  
   });
 }
 
@@ -171,6 +172,16 @@ function changeScreenChat() {
   });
 }
 
+function convertEmoji(){
+  $('.convert-emoji').each(function() {
+    var original = $(this).html();
+
+    var converted = emojione.toImage(original);
+
+    $(this).html(converted);
+  });
+}
+
 $(document).ready(function () {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
@@ -205,4 +216,7 @@ $(document).ready(function () {
 
   //chon cuoc tro chuyen dau tien khi load lai trang
   $('ul.people').find('a')[0].click();
+
+  //convert emoji unicode or shortname to image
+  convertEmoji();
 });
