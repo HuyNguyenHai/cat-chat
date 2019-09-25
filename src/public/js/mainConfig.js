@@ -14,7 +14,7 @@ function nineScrollLeft() {
   });
 }
 
-function nineScrollRight(divId) {
+function niceScrollRight(divId) {
   $(`.right .chat[data-chat = ${divId}]`).niceScroll({
     smoothscroll: true,
     horizrailenabled: false,
@@ -49,7 +49,6 @@ function enableEmojioneArea(divId) {
     event.preventDefault();
     $('.emojionearea-button').click();
     $('.emojionearea-editor').focus();
-  
   });
 }
 
@@ -167,7 +166,7 @@ function changeScreenChat() {
     $(this).tab('show');
 
     //cau hinh thanh cuon moi khi chon 1 cuoc tro chuyen
-    nineScrollRight(divId);
+    niceScrollRight(divId);
     enableEmojioneArea(divId);
   });
 }
