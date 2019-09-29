@@ -1,4 +1,4 @@
-require("dotenv").config();
+  require("dotenv").config();
 import express from "express";
 import ConnectDB from "./config/connectDB";
 import configViewEngine from "./config/viewEngine";
