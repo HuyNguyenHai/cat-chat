@@ -77,6 +77,8 @@ $(document).ready(function () {
                     $(this).off('move.moveConversationToTop');
                 });
                 $(`.person[data-chat = ${message.receiverId}]`).trigger('move.moveConversationToTop');
+                
+                $(`.right .chat[data-chat = ${message.receivedId}]`).find('.bubble-typing-gif').remove();
             } else {
                 newMessageElement.html(emojione.toImage(message.text));
                 $(`.right .chat[data-chat = ${message.senderId}]`).append(newMessageElement);
@@ -91,6 +93,7 @@ $(document).ready(function () {
                     $(this).off('move.moveConversationToTop');
                 });
                 $(`.person[data-chat = ${message.senderId}]`).trigger('move.moveConversationToTop');
+                $(`.right .chat[data-chat = ${message.senderId}]`).find('.bubble-typing-gif').remove();
             }
         }
     }); 
