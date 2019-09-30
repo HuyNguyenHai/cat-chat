@@ -1,6 +1,4 @@
-/**
- * Created by https://trungquandev.com's author on 25/02/2018.
- */
+
 
 const socket = io();
 
@@ -42,6 +40,10 @@ function enableEmojioneArea(divId) {
       },
       click: function () {
         sendTextAndEmoji(divId);
+        //typingOn(divId);
+      },
+      blur: function() {
+        //typingOff(divId);
       }
     },
   });
