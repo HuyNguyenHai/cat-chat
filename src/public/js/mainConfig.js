@@ -187,29 +187,25 @@ function desktopNotify(title, content) {
   if (!window.Notification) {
       console.log('Browser does not support notifications.');
   } else {
-      // check if permission is already granted
-      if (Notification.permission === 'granted') {
-          // show notification here
-          var notify = new Notification(title, {
-              body: content,
-              icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
-          });
-      } else {
-          // request permission from user
-          Notification.requestPermission().then(function (p) {
-              if (p === 'granted') {
-                  // show notification here
-                  var notify = new Notification(title, {
-                      body: content,
-                      icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
-                  });
-              } else {
-                  console.log('User blocked notifications.');
-              }
-          }).catch(function (err) {
-              console.error(err);
-          });
-      }
+    if (Notification.permission === 'granted') {
+      var notify = new Notification(title, {
+          body: content,
+          icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
+      });
+    } else {
+      Notification.requestPermission().then(function (p) {
+          if (p === 'granted') {
+              var notify = new Notification(title, {
+                  body: content,
+                  icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
+              });
+          } else {
+              console.log('User blocked notifications.');
+          }
+      }).catch(function (err) {
+          console.error(err);
+      });
+    }
   }
 }
 
