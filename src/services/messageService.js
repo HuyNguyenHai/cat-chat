@@ -27,7 +27,7 @@ let getAllConversations = (currentUserId) => {
                     userConversation.updatedAt = contact.updatedAt;
                     return userConversation;
                 }
-            })
+            });
 
             let userConversations = await Promise.all(userConversationsPromise);
             let groupConversations = await ChatGroupModel.getChatGroup(currentUserId, LIMIT_CONVERSATIONS_TAKEN);
@@ -55,7 +55,7 @@ let getAllConversations = (currentUserId) => {
             allConversationsWithMessages.sort((a, b) => {
                 return b.updatedAt - a.updatedAt;
             })
-                
+
             resolve({
                 allConversationsWithMessages: allConversationsWithMessages
             });
@@ -66,7 +66,6 @@ let getAllConversations = (currentUserId) => {
 };
 
 /**
- * 
  * @param {Object} sender currentUser
  * @param {string} receiverId Id of an user or a group
  * @param {string} messageValue message content (text and emoji)
@@ -120,7 +119,7 @@ let addNewMessage = (sender, receiverId, messageValue, isChatGroup) => {
                     conversationType: MessageModel.conversationTypes.PERSONAL,
                     messageType: MessageModel.messageTypes.TEXT,
                     sender: sender,
-                    receiver: receiver, 
+                    receiver: receiver,
                     text: messageValue,
                     createdAt: Date.now()
                 };
