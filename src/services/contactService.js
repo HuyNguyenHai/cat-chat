@@ -138,6 +138,18 @@ let acceptRequestContact = (currentUserId, contactId) => {
   });
 }
 
+let getContactsByUidForSocket = (currentUserId) => {
+  return new Promise(async(resolve, reject) => {
+    try {
+      let result = await ContactModel.getContactsByUidForSocket(currentUserId);
+      let contacts = result.map(item => (item._doc.contactId == currentUserId)?item._doc.userId:item._doc.contactId)
+      resolve(contacts);
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -147,5 +159,6 @@ module.exports = {
   getContactsReceived: getContactsReceived,
   acceptRequestContact: acceptRequestContact,
   removeRequestContactReceived: removeRequestContactReceived,
-  removeContact: removeContact
+  removeContact: removeContact,
+  getContactsByUidForSocket: getContactsByUidForSocket
 }

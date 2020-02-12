@@ -24,11 +24,11 @@ function addUserContact() {
 
 socket.on("response-add-new-contact", function(user) {
     console.log(user);
+    desktopNotify(`Yêu cầu kết bạn mới!`, `${user.username} đã gửi cho bạn lời mời kết bạn!`);
     let notif = `<span data-uid="${ user.id }">
     <img class="avatar-small" src="images/users/${ user.avatar }" alt=""> 
     <strong>${user.username}</strong> đã gửi cho bạn một lời mời kết bạn!
     </span><br><br><br>`;
-
     let requestContactNotif = `<li class="_contactList" data-uid="${ user.id }">
     <div class="contactPanel">
         <div class="user-avatar">

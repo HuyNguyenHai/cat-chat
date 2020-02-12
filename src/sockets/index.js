@@ -6,10 +6,13 @@ import removeContact from './contact/removeContact';
 import sendTextAndEmoji from './chat/sendTextAndEmoji';
 import typingOn from './chat/typingOn';
 import typingOff from './chat/typingOff';
+import online from './onlineStatus/online';
+import offline from './onlineStatus/offline';
 /**
  * 
  * @param {*} io from socket.io lib
  */
+
 
 let initSockets = (io) => {
     addNewContact(io);
@@ -20,6 +23,8 @@ let initSockets = (io) => {
     sendTextAndEmoji(io);
     typingOn(io);
     typingOff(io);
+    offline(io);
+    online(io)
 }
 
 module.exports = initSockets;

@@ -55,7 +55,7 @@ function sendTextAndEmoji(divId) {
 
 $(document).ready(function () {
     socket.on('response-send-text-and-emoji', (message) => {
-        desktopNotify(message.sender.name, message.text);
+        desktopNotify(`Tin nhắn mới từ ${message.sender.name}:`, message.text);
         let currentUserId = $('.dropdown').data('uid');
         if(message.senderId != currentUserId) {
             //display new message received realtime

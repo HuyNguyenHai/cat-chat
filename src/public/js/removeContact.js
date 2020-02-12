@@ -28,7 +28,7 @@ function removeContact() {
                         socket.emit('remove-contact', {contactId: targetId});
                     }
                 }
-            });
+              });
             }
           })
     });

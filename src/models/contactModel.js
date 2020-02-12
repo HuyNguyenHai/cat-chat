@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { contact } from "../services";
+import { is } from "bluebird";
 
 let Schema = mongoose.Schema;
 
@@ -121,6 +122,19 @@ ContactSchema.statics = {
       updatedAt: Date.now()
     }
     ).exec();
+  },
+
+  getContactsByUidForSocket(userId) {
+    return this.find({
+      $or: [
+        {"userId": userId},
+        {"contactId": userId}
+      ]
+    }, {
+      "userId": 1,
+      "contactId": 1
+    })
+    .exec();
   }
 };
 

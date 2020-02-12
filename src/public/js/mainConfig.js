@@ -2,7 +2,7 @@
 
 const socket = io();
 
-function nineScrollLeft() {
+function niceScrollLeft() {
   $('.left').niceScroll({
     smoothscroll: true,
     horizrailenabled: false,
@@ -13,7 +13,7 @@ function nineScrollLeft() {
 }
 
 function niceScrollRight(divId) {
-  $(`.right .chat[data-chat = ${divId}]`).niceScroll({
+  $(`.right .chat[data-chat = ${divId}]`).niceScroll  ({
     smoothscroll: true,
     horizrailenabled: false,
     cursorcolor: '#ECECEC',
@@ -185,8 +185,12 @@ function convertEmoji(){
 
 function desktopNotify(title, content) {
   if (!window.Notification) {
-      console.log('Browser does not support notifications.');
+    console.log('Browser does not support notifications.');
   } else {
+    Notification.onclick =  function(event) {
+      event.preventDefault();
+      window.open('http://localhost:3000', '_blank');
+    }
     if (Notification.permission === 'granted') {
       var notify = new Notification(title, {
           body: content,
@@ -194,19 +198,41 @@ function desktopNotify(title, content) {
       });
     } else {
       Notification.requestPermission().then(function (p) {
-          if (p === 'granted') {
-              var notify = new Notification(title, {
-                  body: content,
-                  icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
-              });
-          } else {
-              console.log('User blocked notifications.');
-          }
+        if (p === 'granted') {
+            var notify = new Notification(title, {
+                body: content,
+                icon: 'https://avatars2.githubusercontent.com/u/47636745?s=400&u=320186a9d7aa604c566c91822e1c5af2ed4d6039&v=4',
+            });
+        } else {
+            console.log('User blocked notifications.');
+        }
       }).catch(function (err) {
           console.error(err);
       });
     }
   }
+}
+
+function friendOnlineSocketOn() {
+  socket.on('online-friend', function(data) {
+    let friendId = data.friendId;
+    console.log(friendId, 'logged in');
+    // $('.left .tab-content')
+    // .find(`.person[data-chat=${friendId}]`)
+    // .find('.left-avatar .dot')
+    // .css('background-color', '#03fc35');
+  });
+}
+
+function friendOfflineSocketOn() {
+  socket.on('offline-friend', function(data) {
+    let friendId = data.friendId;
+    console.log(friendId, 'logged out');
+    // $('.left .tab-content')
+    // .find(`.person[data-chat=${friendId}]`)
+    // .find('.left-avatar .dot')
+    // .css('background-color', '#bbbbbb');
+  });
 }
 
 $(document).ready(function () {
@@ -217,7 +243,7 @@ $(document).ready(function () {
   configNotification();
 
   // Cấu hình thanh cuộn
-  nineScrollLeft();
+  niceScrollLeft();
 
   // Icon loading khi chạy ajax
   ajaxLoading();
@@ -248,4 +274,8 @@ $(document).ready(function () {
 
   //convert emoji unicode or shortname to image
   convertEmoji();
+
+  // trigger when a friend of current user is LOGIN/LOGOUT
+  friendOnlineSocketOn()
+  friendOfflineSocketOn()
 });
