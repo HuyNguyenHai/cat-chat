@@ -57,8 +57,11 @@
                     <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                         <li class="person" data-chat="<%= conversation._id %>">
                             <div class="left-avatar">
-                            <div class="dot" style="<%= (conversation.isOnline)?'background-color:#03fc35':'background-color:#bbbbbb' %>"></div>
-                            <!-- <div class="dot"></div> -->
+                            <% if(conversation.isOnline) { %>
+                                <div class="dot" style="background-color:#03fc35">
+                            <% } else { %>    
+                                <div class="dot" style="background-color:#bbbbbb"></div> 
+                            <% } %>
                                 <img src="images/users/<%= conversation.avatar %>" alt="">
                             </div>
                             <span class="name">

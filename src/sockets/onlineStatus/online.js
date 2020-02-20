@@ -20,7 +20,7 @@ let online = (io) => {
             emitNotifyToArray(clients, contact, io, "online-friend", {
                 onlineFriendId: userId
             });
-        })
+        });
 
         socket.on('disconnect', () => {
             clients = removeSocketIdFromArray(clients, socket.request.user._id, socket);
